@@ -1,0 +1,99 @@
+```groovy
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    ext.kotlin_version = '1.5.21' // Kotlin version for the project
+    repositories {
+        google() // Google's Maven repository for Android libraries
+        mavenCentral() // Maven Central repository for additional dependencies
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:7.0.4" // Android Gradle Plugin
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version" // Kotlin Gradle Plugin
+    }
+}
+
+plugins {
+    id 'com.android.application' // Apply the Android application plugin
+    id 'kotlin-android' // Apply Kotlin Android plugin for Kotlin support
+}
+
+android {
+    compileSdk 31 // Target SDK version for the application
+
+    defaultConfig {
+        applicationId "com.madhub.inssearchtool" // Unique application ID
+        minSdk 21 // Minimum SDK version for compatibility
+        targetSdk 31 // Target SDK version for optimal performance
+        versionCode 1 // Application version code
+        versionName "1.0.0" // Application version name
+
+        // Configure the language setting for the application
+        resConfigs "en" // Set resource configurations for English language support
+
+        // Enabling view binding for easier UI management
+        buildFeatures {
+            viewBinding true // Enable view binding to reduce boilerplate code
+        }
+    }
+
+    // Configure build types to manage different environments
+    buildTypes {
+        release {
+            minifyEnabled false // Disable code shrinking for easier debugging
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            // Debug-specific settings can be added here
+        }
+    }
+
+    // Configure Kotlin options
+    kotlinOptions {
+        jvmTarget = '1.8' // Set target JVM version for Kotlin
+    }
+}
+
+// Dependencies block to declare required libraries for the project
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version" // Kotlin Standard Library
+
+    // Essential Android libraries
+    implementation 'androidx.appcompat:appcompat:1.3.1' // Support for action bar and compatibility
+    implementation 'androidx.core:core-ktx:1.6.0' // Kotlin extensions for core Android APIs
+
+    // ViewModel and LiveData dependencies for MVVM architecture
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1' // ViewModel for managing UI-related data
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1' // LiveData for observing data changes
+    
+    // Networking library for API calls
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0' // Retrofit for network operations
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0' // Gson converter for JSON serialization
+
+    // For database management with Room
+    implementation 'androidx.room:room-runtime:2.3.0' // Room for managing local database
+    annotationProcessor 'androidx.room:room-compiler:2.3.0' // Compiler for Room
+
+    // Additional library for handling background tasks (if applicable)
+    implementation 'androidx.work:work-runtime-ktx:2.7.1' // WorkManager for background operations
+
+    // Annotations for use in data classes and APIs
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1' // Coroutine support for asynchronous tasks
+}
+
+// This file establishes the core structure and configuration of the Android application.
+// The chosen dependencies support the key functionalities required for a social media automation tool.
+```
+
+### Explanation of Key Configuration Elements:
+
+1. **Gradle Plugins**: The `com.android.application` and `kotlin-android` plugins are applied to facilitate Android app development and Kotlin support.
+
+2. **Compile SDK and Build Types**: The `compileSdk` is positioned at a recent version (31) to utilize modern Android features, while build types are configured with `minifyEnabled` set to `false` for easier debugging during development.
+
+3. **Dependencies**: The selected dependencies are tailored for an automation tool:
+   - **Retrofit**: Essential for handling network requests to the social media APIs, facilitating smooth communication.
+   - **Room**: Implements a local database for storing and managing user preferences or cached data.
+   - **WorkManager**: Manages background operations, crucial for 24/7 automated functionalities.
+   - **LiveData and ViewModel**: Adopts the MVVM architecture for responsive UI updating based on data changes.
+
+This configuration file establishes a robust foundation for developing **MadHub**, ensuring that all technical implementations are compliant with best practices and optimized for performance.
